@@ -5,16 +5,16 @@ class IntakesController < ApplicationController
     intake = Intake.new(intake_params)
     if intake.valid?
       intake.save
-      render json: {id: intake.id}, status: :ok
+      render json: {id: intake.id, created_at: intake.created_at, amount: intake.amount, user_id: params[:user_id]}, status: :ok
     else
       render json: {ok: false, errors: intake.errors}, status: :bad_request
     end
   end
 
   def index
-    @intakes = Intake.all
+    @intakes = Intake.where(user_id: params[:user_id])
+    # @intakes = Intake.find_by(id: params[:id])
     render json: @intakes.as_json
-
   end
 
   def show
@@ -30,6 +30,6 @@ class IntakesController < ApplicationController
 
   private
   def intake_params
-    params.require(:intake).permit(:amount, :user_id)
+    params.permit(:amount, :user_id)
   end
 end
