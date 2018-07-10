@@ -10,8 +10,10 @@ class UsersController < ApplicationController
 
     if user.valid?
       ##  when a new user is created, corresponding daily_goal is calculated
+      user.goal = user.calculate_daily_goal
+      user.save!
 
-      render json: {id: user.id, name: user.name, email: user.email, age: user.age, weight: user.weight}, status: :ok
+      render json: {id: user.id, name: user.name, email: user.email, age: user.age, weight: user.weight, goal: user.goal}, status: :ok
     else
       render json: {ok: false, errors: user.errors}, status: :bad_request
     end
@@ -43,7 +45,7 @@ class UsersController < ApplicationController
 
   private
     def user_params
-      params.permit(:name, :age, :weight)
+      params.permit(:name, :age, :weight, :email, )
     end
 
 
