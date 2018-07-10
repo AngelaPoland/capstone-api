@@ -1,9 +1,8 @@
 class UsersController < ApplicationController
-  def new
-  end
 
   def index
     @users = User.all
+    render json: @users.as_json
   end
 
   def create
@@ -22,7 +21,7 @@ class UsersController < ApplicationController
     @user = User.find_by(id: params[:id])
 
     if @user
-      render json: @user.as_json(only: [:name, :age, :weight, :goal])
+      render json: @user.as_json(only: [:name, :age, :weight, :goal, :email])
     else
       render json: {ok: false, :errors => "User not found"}, status: :not_found
     end
@@ -35,8 +34,11 @@ class UsersController < ApplicationController
     @user = User.find_by(id: params[:id])
 
     amount = @user.calculate_daily_goal
+    amount_in_cups = @user.daily_goal_in_cups
+    amount_in_glasses = @user.daily_goal_in_glasses
+    amount_towards_goal = @user.total_drank_today
 
-    render json: {id: user.id, goal: amount}, status: :ok   # deal with this later
+    render json: {id: @user.id, goal: amount, goal_in_cups: amount_in_cups, goal_in_glasses: amount_in_glasses, percent_drank_towards_goal: amount_towards_goal}, status: :ok   # deal with this later
   end
 
   private

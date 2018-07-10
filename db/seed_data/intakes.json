@@ -2,55 +2,55 @@
   {
     "id": 1,
     "user_id": 1,
-    "date": "2018-07-10",
-    "amount": 1
+    "created_at": "Date: 2018-07-09 ((2458309j,0s,0n),+0s,2299161j)",
+    "amount": 16
   },
   {
     "id": 2,
     "user_id": 1,
-    "date": "2018-07-10",
-    "amount": 1
+    "created_at": "Date: 2018-07-09 ((2458309j,0s,0n),+0s,2299161j)",
+    "amount": 8
   },
   {
     "id": 3,
     "user_id": 2,
-    "date": "2018-07-10",
-    "amount": 2
+    "created_at": "Date: 2018-07-09 ((2458309j,0s,0n),+0s,2299161j)",
+    "amount": 8
   },
   {
     "id": 4,
     "user_id": 2,
-    "date": "2018-07-10",
-    "amount": 2
+    "created_at": "Date: 2018-07-09 ((2458309j,0s,0n),+0s,2299161j)",
+    "amount": 8
   },
   {
-    "id": 4,
+    "id": 9,
     "user_id": 2,
-    "date": "2018-07-10",
-    "amount": 2
+    "created_at": "Date: 2018-07-09 ((2458309j,0s,0n),+0s,2299161j)",
+    "amount": 4
   },
   {
     "id": 5,
     "user_id": 3,
-    "date": "2018-07-10",
-    "amount": 1
+    "created_at": "Date: 2018-07-09 ((2458309j,0s,0n),+0s,2299161j)",
+    "amount": 8
   },
   {
     "id": 6,
     "user_id": 3,
-    "date": "2018-07-10",
-    "amount": 2
+    "created_at": "Date: 2018-07-09 ((2458309j,0s,0n),+0s,2299161j)",
+    "amount": 8
   },
   {
     "id": 7,
     "user_id": 3,
-    "date": "2018-07-11",
-    "amount": 1
+    "created_at": "Date: 2018-07-09 ((2458309j,0s,0n),+0s,2299161j)",
+    "amount": 8
   },
   {
     "id": 8,
     "user_id": 2,
-    "date": "2018-07-10",
-    "amount": 1
+    "created_at": "Date: 2018-07-09 ((2458309j,0s,0n),+0s,2299161j)",
+    "amount": 8
   }
 ]

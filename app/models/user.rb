@@ -27,11 +27,11 @@ class User < ApplicationRecord
   end
 
   def daily_goal_in_cups
-    (self.calculate_daily_goal / 8).round
+    (self.calculate_daily_goal / 8).round(1)
   end
 
   def daily_goal_in_glasses
-    (self.calculate_daily_goal / 16).round
+    (self.calculate_daily_goal / 16).round(1)
   end
 
   def total_drank_today
@@ -39,11 +39,15 @@ class User < ApplicationRecord
 
     self.intakes.each do |intake|
       if intake.created_at == Date.today
-       total += intake.amount
+       total += intake.amount  #amount is currently in oz
       end
     end
 
     return total
+  end
+
+  def percent_to_goal
+    (self.total_drank_today / self.calculate_daily_goal)
   end
 
 
