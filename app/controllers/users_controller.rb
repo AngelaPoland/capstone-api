@@ -11,8 +11,8 @@ class UsersController < ApplicationController
 
     if user.valid?
       ##  when a new user is created, corresponding daily_goal is calculated
-      daily_goal = user.calculate_daily_goal
-      render json: {id: user.id, goal: daily_goal}, status: :ok
+
+      render json: {id: user.id, name: user.name, email: user.email, age: user.age, weight: user.weight}, status: :ok
     else
       render json: {ok: false, errors: user.errors}, status: :bad_request
     end
@@ -29,6 +29,14 @@ class UsersController < ApplicationController
   end
 
   def update
+  end
+
+  def goal  # you can route directly to a model method (so one API call per method needed)
+    @user = User.find_by(id: params[:id])
+
+    amount = @user.calculate_daily_goal
+
+    render json: {id: user.id, goal: amount}, status: :ok   # deal with this later
   end
 
   private

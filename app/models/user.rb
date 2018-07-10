@@ -7,10 +7,10 @@ class User < ApplicationRecord
   validates :weight, presence: true, numericality: { only_float: true, greater_than: 0 }
 
   def calculate_daily_goal
-    user = User.find_by(id: self.user_id)
+    # user = User.find_by(id: self.user_id)
 
-    age = user.age.to_i
-    weight = user.weight.to_f
+    age = self.age.to_i
+    weight = self.weight.to_f
     x = weight / 2.2
 
     if age <= 30
@@ -32,6 +32,41 @@ class User < ApplicationRecord
 
   def daily_goal_in_glasses
     (self.calculate_daily_goal / 16).round
+  end
+
+  def total_drank_today
+    total = 0.0
+
+    self.intakes.each do |intake|
+      if intake.created_at == Date.today
+       total += intake.amount
+      end
+    end
+
+    return total
+  end
+
+
+  def total_drank_week
+    week_log = []
+
+    self.intakes.each do |intake|
+      if ((Date.today - 7)..Date.today).cover?(intake.date)
+        week_log << intake.amount
+      end
+    end
+    return week_log
+  end
+
+  def total_drank_month
+    month_log = []
+
+    self.intakes.each do |intake|
+      if ((Date.today - 31)..Date.today).cover?(intake.date)
+        month_log << intake.amount
+      end
+    end
+    return month_log
   end
 
 
