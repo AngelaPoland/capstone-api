@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "Angela P",
+    "age": 30,
+    "weight": 160,
+    "goal": 106,
+    "email": "test@test.com"
+  },
+  {
+    "id": 2,
+    "name": "Desiree P",
+    "age": 27,
+    "weight": 130,
+    "goal": 87,
+    "email": "test1@test.com"
+  },
+  {
+    "id": 3,
+    "name": "Hedwig Owl",
+    "age": 15,
+    "weight": 100,
+    "goal": 64,
+    "email": "hedwig@test.com"
+  }
+]
