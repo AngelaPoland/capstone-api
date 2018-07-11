@@ -7,8 +7,6 @@ class User < ApplicationRecord
   validates :weight, presence: true, numericality: { only_float: true, greater_than: 0 }
 
   def calculate_daily_goal
-    # user = User.find_by(id: self.user_id)
-
     age = self.age.to_i
     weight = self.weight.to_f
     x = weight / 2.2
@@ -59,7 +57,6 @@ class User < ApplicationRecord
   def total_drank_week
     intake_log = []
     week_hash = {}
-    week_log = []
 
     self.intakes.each do |intake|
       if ((Date.today - 7)..(Date.today + 1)).cover?(intake.created_at)
@@ -68,6 +65,7 @@ class User < ApplicationRecord
     end
 
     intake_log.each do |intake|
+      intake.created_at = intake.created_at.to_date
       if week_hash[intake.created_at]
         week_hash[intake.created_at] += intake.amount
       else
@@ -76,7 +74,7 @@ class User < ApplicationRecord
     end
 
     week_log = week_hash.values  #this returns an array of each day's total amount drank
-
+    return week_log
   end
 
   def total_drank_month
@@ -91,6 +89,7 @@ class User < ApplicationRecord
     end
 
     intake_log.each do |intake|
+      intake.created_at = intake.created_at.to_date
       if month_hash[intake.created_at]
         month_hash[intake.created_at] += intake.amount
       else
@@ -99,6 +98,7 @@ class User < ApplicationRecord
     end
 
     month_log = month_hash.values  #this returns an array of each day's total amount drank
+    return month_log
 
   end
 
