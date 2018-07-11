@@ -26,6 +26,7 @@ class User < ApplicationRecord
     return water_goal_in_oz
   end
 
+
   def daily_goal_in_cups
     (self.calculate_daily_goal / 8).round(1)
   end
@@ -38,16 +39,20 @@ class User < ApplicationRecord
     total = 0.0
 
     self.intakes.each do |intake|
-      if intake.created_at == Date.today
+      if intake.created_at.strftime("%Y-%m-%d") == Date.today.strftime("%Y-%m-%d")
        total += intake.amount  #amount is currently in oz
       end
     end
-
     return total
   end
 
   def percent_to_goal
-    (self.total_drank_today / self.calculate_daily_goal)
+    num = ((self.total_drank_today / self.calculate_daily_goal).round(4) * 100)
+    return "#{num}%"
+  end
+
+  def total_left_to_drink
+    (self.calculate_daily_goal - self.total_drank_today)
   end
 
 

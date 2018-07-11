@@ -1,6 +1,5 @@
 [
   {
-    "id": 1,
     "name": "Angela P",
     "age": 30,
     "weight": 160,
@@ -8,7 +7,6 @@
     "email": "test@test.com"
   },
   {
-    "id": 2,
     "name": "Desiree P",
     "age": 27,
     "weight": 130,
@@ -16,7 +14,6 @@
     "email": "test1@test.com"
   },
   {
-    "id": 3,
     "name": "Hedwig Owl",
     "age": 15,
     "weight": 100,

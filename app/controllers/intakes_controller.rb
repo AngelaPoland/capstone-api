@@ -5,7 +5,7 @@ class IntakesController < ApplicationController
     intake = Intake.new(intake_params)
     if intake.valid?
       intake.save
-      render json: {id: intake.id, created_at: intake.created_at, amount: intake.amount, user_id: params[:user_id]}, status: :ok
+      render json: {id: intake.id, created_at: intake.created_at.strftime("%Y-%m-%d"), amount: intake.amount, user_id: params[:user_id]}, status: :ok
     else
       render json: {ok: false, errors: intake.errors}, status: :bad_request
     end
