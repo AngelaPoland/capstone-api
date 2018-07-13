@@ -11,7 +11,6 @@ class UsersController < ApplicationController
     if user.valid?
       ##  when a new user is created, corresponding daily_goal is calculated
       user.goal = user.calculate_daily_goal
-      user.drank_today = user.total_drank_today
       user.save!
 
       render json: {id: user.id, name: user.name, email: user.email, age: user.age, weight: user.weight, goal: user.goal}, status: :ok
@@ -42,8 +41,9 @@ class UsersController < ApplicationController
     amount_today = @user.total_drank_today
     amount_towards_goal = @user.percent_to_goal
     week = @user.total_drank_week
+    month = @user.total_drank_month
 
-    render json: {id: @user.id, goal: amount, goal_in_cups: amount_in_cups, goal_in_glasses: amount_in_glasses, amount_drank_today: amount_today, percent_drank_towards_goal: amount_towards_goal, total_for_week: week}, status: :ok
+    render json: {id: @user.id, goal: amount, goal_in_cups: amount_in_cups, goal_in_glasses: amount_in_glasses, amount_drank_today: amount_today, percent_drank_towards_goal: amount_towards_goal, total_for_week: week, total_drank_month: month}, status: :ok
   end
 
   private

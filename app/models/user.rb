@@ -45,7 +45,7 @@ class User < ApplicationRecord
   end
 
   def percent_to_goal
-    num = ((self.total_drank_today / self.calculate_daily_goal).round(4) * 100)
+    num = ((self.total_drank_today / self.calculate_daily_goal) * 100).round(2)
     return "#{num}%"
   end
 
@@ -58,22 +58,31 @@ class User < ApplicationRecord
     intake_log = []
     week_hash = {}
 
+    first_date = Date.today - 6
+    last_date = Date.today
+    range = (first_date..last_date)
+
+    7.times do
+      week_hash[first_date.to_date] = 0
+      first_date += 1
+    end
+
     self.intakes.each do |intake|
-      if ((Date.today - 7)..(Date.today + 1)).cover?(intake.created_at)
+      if range.include?(intake.created_at)
         intake_log << intake
       end
     end
 
     intake_log.each do |intake|
-      intake.created_at = intake.created_at.to_date
-      if week_hash[intake.created_at]
-        week_hash[intake.created_at] += intake.amount
-      else
-        week_hash[intake.created_at] = intake.amount
+      if week_hash[intake.created_at.to_date]
+        week_hash[intake.created_at.to_date] += intake.amount
       end
     end
 
-    week_log = week_hash.values  #this returns an array of each day's total amount drank
+    puts week_hash
+    puts range.to_a
+
+    week_log = week_hash.values  #this returns an array of each day's total amount drank in oz
     return week_log
   end
 
@@ -82,8 +91,17 @@ class User < ApplicationRecord
     month_hash = {}
     month_log = []
 
+    first_date = Date.today - 30
+    last_date = Date.today
+    range = (first_date..last_date)
+
+    31.times do
+      month_hash[first_date.to_date] = 0
+      first_date += 1
+    end
+
     self.intakes.each do |intake|
-      if ((Date.today - 7)..(Date.today + 1)).cover?(intake.created_at)
+      if range.include?(intake.created_at)
         intake_log << intake
       end
     end
