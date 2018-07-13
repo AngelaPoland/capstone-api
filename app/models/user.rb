@@ -107,15 +107,15 @@ class User < ApplicationRecord
     end
 
     intake_log.each do |intake|
-      intake.created_at = intake.created_at.to_date
-      if month_hash[intake.created_at]
-        month_hash[intake.created_at] += intake.amount
-      else
-        month_hash[intake.created_at] = intake.amount
+      if month_hash[intake.created_at.to_date]
+        month_hash[intake.created_at.to_date] += intake.amount
       end
     end
 
+
+
     month_log = month_hash.values  #this returns an array of each day's total amount drank
+    puts month_log.count
     return month_log
 
   end
