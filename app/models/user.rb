@@ -37,7 +37,7 @@ class User < ApplicationRecord
     total = 0.0
 
     self.intakes.each do |intake|
-      if intake.created_at.strftime("%Y-%m-%d") == Date.today.strftime("%Y-%m-%d")
+      if intake.created_at.strftime("%Y-%m-%d") === Date.today.strftime("%Y-%m-%d")
        total += intake.amount  #amount is currently in oz
       end
     end
@@ -46,7 +46,7 @@ class User < ApplicationRecord
 
   def percent_to_goal
     num = ((self.total_drank_today / self.calculate_daily_goal) * 100).round(2)
-    return "#{num}%"
+    return num
   end
 
   def total_left_to_drink # in OZ
@@ -79,11 +79,9 @@ class User < ApplicationRecord
       end
     end
 
-    puts week_hash
-    puts range.to_a
-
     week_log = week_hash.values  #this returns an array of each day's total amount drank in oz
-    return week_log
+    # return week_log
+    return week_hash
   end
 
   def total_drank_month
@@ -112,11 +110,10 @@ class User < ApplicationRecord
       end
     end
 
-
-
     month_log = month_hash.values  #this returns an array of each day's total amount drank
-    puts month_log.count
-    return month_log
+
+    # return month_log
+    return month_hash
 
   end
 
