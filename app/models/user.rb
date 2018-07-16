@@ -62,13 +62,8 @@ class User < ApplicationRecord
     last_date = Date.today
     range = (first_date..last_date)
 
-    7.times do
-      week_hash[first_date.to_date] = 0
-      first_date += 1
-    end
-
-    self.intakes.each do |intake|
-      if range.include?(intake.created_at)
+    self.intakes.sort_by { |intake| intake.created_at }.each do |intake|
+      if range.include?(intake.created_at.to_date)
         intake_log << intake
       end
     end
@@ -76,6 +71,8 @@ class User < ApplicationRecord
     intake_log.each do |intake|
       if week_hash[intake.created_at.to_date]
         week_hash[intake.created_at.to_date] += intake.amount
+      else
+        week_hash[intake.created_at.to_date] = 0
       end
     end
 
@@ -87,19 +84,13 @@ class User < ApplicationRecord
   def total_drank_month
     intake_log = []
     month_hash = {}
-    month_log = []
 
     first_date = Date.today - 30
     last_date = Date.today
     range = (first_date..last_date)
 
-    31.times do
-      month_hash[first_date.to_date] = 0
-      first_date += 1
-    end
-
-    self.intakes.each do |intake|
-      if range.include?(intake.created_at)
+    self.intakes.sort_by { |intake| intake.created_at }.each do |intake|
+      if range.include?(intake.created_at.to_date)
         intake_log << intake
       end
     end
@@ -107,14 +98,14 @@ class User < ApplicationRecord
     intake_log.each do |intake|
       if month_hash[intake.created_at.to_date]
         month_hash[intake.created_at.to_date] += intake.amount
+      else
+        month_hash[intake.created_at.to_date] = 0
       end
     end
 
-    month_log = month_hash.values  #this returns an array of each day's total amount drank
-
+    month_log = month_hash.values  #this returns an array of each day's total amount drank in oz
     # return month_log
     return month_hash
-
   end
 
 

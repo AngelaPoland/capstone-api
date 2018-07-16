@@ -42,8 +42,9 @@ class UsersController < ApplicationController
     amount_towards_goal = @user.percent_to_goal
     week = @user.total_drank_week
     month = @user.total_drank_month
+    left_to_go = @user.total_left_to_drink
 
-    render json: {id: @user.id, goal: amount, goal_in_cups: amount_in_cups, goal_in_glasses: amount_in_glasses, amount_drank_today: amount_today, percent_drank_towards_goal: amount_towards_goal, total_for_week: week, total_drank_month: month}, status: :ok
+    render json: {id: @user.id, goal: amount, goal_in_cups: amount_in_cups, goal_in_glasses: amount_in_glasses, amount_drank_today: amount_today, percent_drank_towards_goal: amount_towards_goal, total_for_week: week, total_drank_month: month, left_to_drink: left_to_go}, status: :ok
   end
 
   private
