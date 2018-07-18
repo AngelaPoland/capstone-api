@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  skip_before_action :verify_authenticity_token
 
   def index
     @users = User.all
@@ -30,12 +31,25 @@ class UsersController < ApplicationController
   end
 
   def update
+    #HOW TO EDIT A USER
+    logger.debug "Updating User with #{params}"
+    user = User.find_by(id: params[:id])
+    if !user.nil?
+      if user.update(user_params)
+        user.save
+        render :json => user.as_json(only: [:name, :email, :age, :weight, :goal]), status: :ok
+      else
+        render json: {ok: false, errors: user.errors}, status: :bad_request
+      end
+    else
+      render json: {ok: false, errors: "User does not exist."}, status: :not_found
+    end
   end
 
   def goal  # you can route directly to a model method (so one API call per method needed)
     @user = User.find_by(id: params[:id])
 
-    amount = @user.calculate_daily_goal
+    amount = @user.goal
     amount_in_cups = @user.daily_goal_in_cups
     amount_in_glasses = @user.daily_goal_in_glasses
     amount_today = @user.total_drank_today

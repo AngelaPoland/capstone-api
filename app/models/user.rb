@@ -45,12 +45,12 @@ class User < ApplicationRecord
   end
 
   def percent_to_goal
-    num = ((self.total_drank_today / self.calculate_daily_goal) * 100).round(2)
+    num = ((self.total_drank_today / self.goal) * 100).round(2)
     return num
   end
 
   def total_left_to_drink # in OZ
-    (self.calculate_daily_goal - self.total_drank_today)
+    (self.goal - self.total_drank_today)
   end
 
 
@@ -88,6 +88,11 @@ class User < ApplicationRecord
     first_date = Date.today - 30
     last_date = Date.today
     range = (first_date..last_date)
+
+    puts range
+    puts intake_log.each do |intake|
+      intake.created_at.to_date
+    end
 
     self.intakes.sort_by { |intake| intake.created_at }.each do |intake|
       if range.include?(intake.created_at.to_date)
